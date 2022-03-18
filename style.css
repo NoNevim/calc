@@ -1,0 +1,47 @@
+
+.calculator {
+    width: 400px;
+    height: auto;
+    margin: 300px auto;
+    border: solid blue 5px;
+}
+
+#display {
+    height: 100px;
+    border: solid black 1px;
+    margin: 5px;
+}
+
+.buttons {
+    display: flex;
+}
+
+.numpad {
+    display: flex;
+    flex-wrap: wrap;
+    width: 300px;
+}
+
+.controlpanel {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100px;
+}
+
+.nums {
+    width: 90px;
+    height: 90px;
+    border: solid red 1px;
+    margin: 5px;
+    background-color: yellowgreen;
+}
+
+.nums.zero {
+    background-color: aqua;    
+    width: 190px;
+}
+
+.nums.vertical {
+    background-color: rgb(255, 0, 200);    
+    height: 190px;
+}
