@@ -2,14 +2,16 @@
 .calculator {
     width: 400px;
     height: auto;
-    margin: 300px auto;
+    margin: 150px auto;
     border: solid blue 5px;
 }
 
 #display {
     height: 100px;
-    border: solid black 1px;
+    border: solid #000000 1px;
     margin: 5px;
+    font-size: 90px;
+    text-align: right;
 }
 
 .buttons {
@@ -28,7 +30,7 @@
     width: 100px;
 }
 
-.nums {
+.basicButton {
     width: 90px;
     height: 90px;
     border: solid red 1px;
@@ -36,12 +38,12 @@
     background-color: yellowgreen;
 }
 
-.nums.zero {
+.basicButton.zero {
     background-color: aqua;    
     width: 190px;
 }
 
-.nums.vertical {
+.basicButton.vertical {
     background-color: rgb(255, 0, 200);    
     height: 190px;
 }
