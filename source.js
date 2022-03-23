@@ -1,6 +1,4 @@
 
-// osetrit zadani vice tecek za sebou
-
 let displayNums = [];
 let firstEnteredNum = null;
 let currentOperation = null;
@@ -11,6 +9,7 @@ const nums = document.querySelectorAll(".nums");
 const operations = document.querySelectorAll(".operations");
 const evaluate = document.querySelector('.evaluate');
 const clear = document.querySelector('.clear');
+const allButtons = document.querySelectorAll('.basicButton');
 
 function add (num1, num2) {
     return num1 + num2;
@@ -65,21 +64,7 @@ function round(number) {
         return number.toExponential(3);  
     } else {
         return parseFloat(number.toPrecision(digits));
-    }  
-    /*
-    } else if ( array[1] !== undefined ) {
-        // number can fit in display but have decimals
-        let availableDecimals = digits - array[0].length;
-        if ( array[1].length >= availableDecimals ) {
-            return number.toFixed(availableDecimals)
-        } else {
-            return number;
-        }    
-    } else {
-        // number can fint in display and has no decimals
-        return number;
-    }
-    */
+    }      
 }
 
 function addNumTodisplay(num) {
@@ -122,8 +107,22 @@ function cleanup() {
     result = null;
 }
 
+function highlight(item) {
+    item.classList.add('clicked');    
+}
+
+function highlight2(item) {
+    item.classList.add('hovered');    
+}
+
+function highlightEnd(item) {
+    item.classList.remove('clicked');
+    item.classList.remove('hovered');
+}
+
 // default numeric settings - i store value to displayNums
 nums.forEach( item => item.addEventListener('click', () => addNumTodisplay(item.value)));
+
 
 operations.forEach( item => item.addEventListener('click', () => {    
     if ( result !== null ) {        
@@ -154,7 +153,12 @@ operations.forEach( item => item.addEventListener('click', () => {
     }
 }));
 
+
 evaluate.addEventListener('click', evaluation);
 
 clear.addEventListener('click', cleanup);
 
+allButtons.forEach( item => item.addEventListener('mousedown', () => highlight(item)));
+allButtons.forEach( item => item.addEventListener('mouseover', () => highlight2(item)));
+allButtons.forEach( item => item.addEventListener('mouseup', () => highlightEnd(item)));
+allButtons.forEach( item => item.addEventListener('mouseleave', () => highlightEnd(item)));

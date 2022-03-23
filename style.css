@@ -3,15 +3,22 @@
     width: 400px;
     height: auto;
     margin: 150px auto;
-    border: solid blue 5px;
+    border: solid darkgrey 10px;
+    background-color: grey;
+    border-radius: 20px;
 }
 
 #display {
     height: 100px;
     border: solid #000000 1px;
     margin: 5px;
-    font-size: 90px;
+    font-size: 85px;
     text-align: right;
+    background-color: white;
+    border-radius: 10px;
+    color: rgb(255, 0, 128);
+    /* font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; */
+    padding: 0px 10px;
 }
 
 .buttons {
@@ -33,17 +40,41 @@
 .basicButton {
     width: 90px;
     height: 90px;
-    border: solid red 1px;
+    border: solid black 1px ;
+    border-radius: 5px;
     margin: 5px;
-    background-color: yellowgreen;
+    background-color: rgb(248, 200, 224);
+    font-weight: 700;
+    font-size: 20px;
+    
 }
 
-.basicButton.zero {
-    background-color: aqua;    
+.basicButton.zero {      
     width: 190px;
 }
 
-.basicButton.vertical {
-    background-color: rgb(255, 0, 200);    
+.basicButton.vertical {        
     height: 190px;
+}
+
+.operations {
+    background-color: hotpink;
+}
+
+.clear {
+    background-color: black;
+    color: white;
+}
+
+.evaluate {
+    background-color: rgb(253, 49, 151);
+}
+
+.clicked {
+    background-color: lime;
+}
+
+.hovered {
+    font-size: 30px;
+    transition: 0.2s;
 }
