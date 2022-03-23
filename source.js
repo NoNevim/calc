@@ -1,4 +1,3 @@
-
 let displayNums = [];
 let firstEnteredNum = null;
 let currentOperation = null;
@@ -76,6 +75,35 @@ function addNumTodisplay(num) {
     }
 }
 
+function clickOnOperator(operator) {
+    if ( result !== null ) {        
+        if ( result !== Number(display.textContent)) {
+            // case when there is a result and user just presses some number after it (means that wants perform new calculation independent of result)
+            // and then presses operator - then i have to start from begining                      
+            firstEnteredNum = Number(displayNums.join(''));            
+            displayNums = [];
+            currentOperation = operator;            
+            result = null;
+        } else {
+            // case where there is already some result and i want to perform operation with it
+            firstEnteredNum = result;
+            currentOperation = operator;
+        }        
+    } else if ((result === null) && (firstEnteredNum !== null )) {
+        // case where user entered number, then clicked on operator, then entered second number and then clicked again on operator ...
+        secondEnteredNum = Number(displayNums.join(''));
+        firstEnteredNum = operate(currentOperation, firstEnteredNum, secondEnteredNum);
+        display.textContent = firstEnteredNum;
+        displayNums = [];
+        currentOperation = operator;
+    } else if ( displayNums > 0 ) {   
+        // case where user entered number (for the first time) and then clicked on operator
+        firstEnteredNum = Number(displayNums.join(''));
+        displayNums = [];
+        currentOperation = operator;        
+    }
+}
+
 
 function evaluation() {
     if ( firstEnteredNum !== null ) {
@@ -120,41 +148,38 @@ function highlightEnd(item) {
     item.classList.remove('hovered');
 }
 
+
 // default numeric settings - i store value to displayNums
 nums.forEach( item => item.addEventListener('click', () => addNumTodisplay(item.value)));
-
-
-operations.forEach( item => item.addEventListener('click', () => {    
-    if ( result !== null ) {        
-        if ( result !== Number(display.textContent)) {
-            // case when there is a result and user just presses some number after it (means that wants perform new calculation independent of result)
-            // and then presses operator - then i have to start from begining                      
-            firstEnteredNum = Number(displayNums.join(''));            
-            displayNums = [];
-            currentOperation = item.value;            
-            result = null;
-        } else {
-            // case where there is already some result and i want to perform operation with it
-            firstEnteredNum = result;
-            currentOperation = item.value;
-        }        
-    } else if ((result === null) && (firstEnteredNum !== null )) {
-        // case where user entered number, then clicked on operator, then entered second number and then clicked again on operator ...
-        secondEnteredNum = Number(displayNums.join(''));
-        firstEnteredNum = operate(currentOperation, firstEnteredNum, secondEnteredNum);
-        display.textContent = firstEnteredNum;
-        displayNums = [];
-        currentOperation = item.value;
-    } else {   
-        // case where user entered number (for the first time) and then clicked on operator
-        firstEnteredNum = Number(displayNums.join(''));
-        displayNums = [];
-        currentOperation = item.value;        
+nums.forEach( item => window.addEventListener('keypress', (event) => {
+    if (item.value === event.key) {
+        addNumTodisplay(item.value);
+        highlight(item);
     }
 }));
 
 
+operations.forEach( item => item.addEventListener('click', () => clickOnOperator(item.value)));
+operations.forEach( item => window.addEventListener('keypress', (event) => {
+    if (item.value === event.key) {
+        clickOnOperator(item.value);
+        highlight(item);
+    }
+}));
+
 evaluate.addEventListener('click', evaluation);
+window.addEventListener('keypress', (event) => { 
+    console.log(event)
+    if (evaluate.value === event.key) {
+        evaluation();
+        highlight(evaluate);
+    } 
+    if (clear.value === event.key) {
+        cleanup();
+        highlight(clear);
+    } 
+
+});
 
 clear.addEventListener('click', cleanup);
 
@@ -162,3 +187,7 @@ allButtons.forEach( item => item.addEventListener('mousedown', () => highlight(i
 allButtons.forEach( item => item.addEventListener('mouseover', () => highlight2(item)));
 allButtons.forEach( item => item.addEventListener('mouseup', () => highlightEnd(item)));
 allButtons.forEach( item => item.addEventListener('mouseleave', () => highlightEnd(item)));
+allButtons.forEach( item => window.addEventListener('keyup', () => highlightEnd(item)));
+
+
+
